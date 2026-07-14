@@ -4,15 +4,15 @@
 
 ## Situação atual (2026-07-14)
 
-- **Estágio:** Fase 1 em andamento. **Etapas 1 (Fundação), 2 (Banco — cadastros) e 3 (Contratos e competências): concluídas.**
-- **Feito na Etapa 3:** tabelas `rental_contracts`, `property_agency_history` e `monthly_rent_periods` (competência com `UNIQUE(imóvel, ano, mês)` e *fotografia* das regras do contrato); função de **geração idempotente** de competências (`ensureMonthlyPeriod`); testes de integração.
-- **Feito nas Etapas 1–2:** esqueleto Next.js 16 + TS + Tailwind (modo claro, pt-BR); zod; utilitário de reais; Drizzle ORM + PGlite; cadastros (`real_estate_agencies`, `properties`); ESLint + Prettier; documentação.
-- **Verificações (todas verdes):** `typecheck`, `lint`, **21 testes** (6 unitários + 15 de banco), 1 teste e2e, `build`.
+- **Estágio:** Fase 1 em andamento. **Etapas 1–4 concluídas** (Fundação; Banco/cadastros; Contratos/competências; **Núcleo financeiro**).
+- **Feito na Etapa 4:** núcleo financeiro em `src/lib/financeiro.ts` (funções puras) — líquido tributável, esperado para depósito, total depositado, divergência com tolerância de R$ 0,01, situações de conciliação, taxa esperada × cobrada e repasse de 27%. Dinheiro em centavos inteiros. 21 testes unitários (incluindo os exemplos do charter).
+- **Feito nas Etapas 1–3:** Next.js 16 + TS + Tailwind (modo claro, pt-BR); zod; Drizzle ORM + PGlite; cadastros, contratos, histórico e competências (geração idempotente + fotografia); ESLint + Prettier; documentação.
+- **Verificações (todas verdes):** `typecheck`, `lint`, **42 testes** (27 unitários + 15 de banco), 1 teste e2e, `build`.
 - **Integração contínua:** GitHub Actions (`.github/workflows/ci.yml`) roda tudo na nuvem a cada push/PR — sem instalação local.
 
 ## Próximo passo proposto
 
-**Etapa 4 — Núcleo financeiro (cálculos):** implementar, como funções puras com testes unitários (prioridade máxima), as fórmulas do `docs/BUSINESS_RULES.md` — líquido tributável, valor esperado para depósito, total depositado, divergência com tolerância de R$ 0,01, situações (conciliado/parcial/a menor/a maior), taxa esperada × cobrada e o repasse de 27%. Sem banco nesta etapa: entradas → resultados calculados. **Aguardar aprovação antes de iniciar.**
+**Etapa 5 — Movimentos e componentes do demonstrativo (persistência):** tabelas `bank_movements` e `statement_components` (e o catálogo `financial_component_types`), conectando o núcleo financeiro a dados reais — avaliar uma competência a partir do que está gravado, com testes de integração. **Aguardar aprovação antes de iniciar.**
 
 ## Fases (resumo)
 

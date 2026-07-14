@@ -14,10 +14,10 @@
 O **GitHub Actions** (`.github/workflows/ci.yml`) roda automaticamente, a cada push na `main` e em cada pull request: `typecheck`, `lint`, testes unitários, `build` e o teste e2e (o Chromium é instalado no próprio runner). Tudo na nuvem do GitHub, sem necessidade de instalar nada localmente.
 
 ## Cobertura atual
-- **Unitários (6):** `formatarReais` (3 casos); `parseEnv` (3 casos).
+- **Unitários (27):** `formatarReais` (3); `parseEnv` (3); **núcleo financeiro** (21) — parsing de centavos, líquido/esperado, total depositado, divergência e tolerância R$ 0,01, situações, taxa esperada × cobrada, repasse de 27% e os exemplos do charter.
 - **Integração de banco (15):** cadastros — imobiliárias/imóveis, unicidade, FK, arquivamento (5); contratos e histórico — CHECKs (dia, regra), FK, decimal preservado (5); competências — geração idempotente, fotografia por competência, UNIQUE, CHECK de mês (5).
 - **E2E (1):** smoke — a página inicial carrega e exibe "Controle de Aluguéis".
-- **Total:** 21 testes no Vitest + 1 e2e no Playwright.
+- **Total:** 42 testes no Vitest + 1 e2e no Playwright.
 
 ## Planejado (etapas seguintes — prioridade nos unitários do financeiro)
 Líquido tributável; esperado para depósito; movimentos; divergência e tolerância R$ 0,01; parcial; estorno; taxa de administração; repasse 27%; dias de atraso; vencimento ajustado; competência × recebimento; Carnê-Leão por mês de recebimento; geração idempotente; duplicidade de cobrança; fechamento mensal. **Integração:** permissões, bloqueio do leitor, geração mensal, conciliação, auditoria. **E2E:** login por link mágico, cadastros, gerar competência, registrar demonstrativo/depósito, divergência, e demais fluxos.

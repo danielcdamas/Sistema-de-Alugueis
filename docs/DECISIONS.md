@@ -30,5 +30,12 @@ Registro enxuto de decisões (estilo ADR): contexto curto + escolha + motivo. De
 - **Fotografia:** a competência copia as regras do contrato (valor, taxa, dia de vencimento, regra de fim de semana) no momento da geração; mudanças posteriores no contrato não alteram competências já criadas.
 - **IPTU:** campo `iptu_config` (`jsonb`) reservado no contrato; a estrutura será definida na etapa de IPTU.
 
+## 2026-07-14 — Etapa 4 (Núcleo financeiro)
+
+- **Dinheiro em centavos inteiros** (`Centavos = number`), nunca ponto flutuante. Somas e subtrações são exatas; as porcentagens (taxa de administração, repasse) usam divisão inteira com arredondamento **meio para cima** (afastando de zero).
+- **Funções puras** em `src/lib/financeiro.ts` (sem banco), cobertas por 21 testes que incluem os exemplos do charter.
+- **Tolerância de conciliação** padrão = 1 centavo (R$ 0,01), configurável.
+- **"Parcial" × "recebido a menor":** ambos têm total abaixo do esperado; a distinção depende de a competência estar "em aberto" (parâmetro `emAberto`) — é decisão de situação, não de aritmética.
+
 ## Pendências conhecidas
 - 2 avisos "moderate" do `npm audit` vindos do `postcss` transitivo dentro do Next 16; a correção sugerida rebaixaria o Next (inviável). Baixo risco prático; reavaliar quando o Next atualizar o postcss.

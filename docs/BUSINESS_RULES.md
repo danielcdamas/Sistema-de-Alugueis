@@ -1,6 +1,8 @@
 # REGRAS DE NEGÓCIO — Controle de Aluguéis
 
 > Fonte da verdade das fórmulas financeiras. Guiam os testes unitários (prioridade máxima). Valores em decimal, R$ com duas casas; nunca ponto flutuante na aritmética.
+>
+> **Implementação:** as fórmulas abaixo estão implementadas como funções puras em `src/lib/financeiro.ts` (dinheiro em **centavos inteiros**), cobertas por testes unitários em `src/lib/financeiro.test.ts`.
 
 ## Conceitos de tempo (separados)
 Competência (mês do aluguel) ≠ Vencimento original ≠ Vencimento ajustado (fim de semana/feriado) ≠ Data do depósito ≠ Mês de recebimento ≠ Referência do Carnê-Leão. **A competência nunca muda porque o depósito atrasou.**
