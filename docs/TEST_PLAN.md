@@ -9,6 +9,10 @@
 - `npm run test:e2e` — ponta a ponta.
 - `npm run typecheck` — checagem de tipos; `npm run lint` — ESLint.
 
+## Integração contínua (nuvem)
+
+O **GitHub Actions** (`.github/workflows/ci.yml`) roda automaticamente, a cada push na `main` e em cada pull request: `typecheck`, `lint`, testes unitários, `build` e o teste e2e (o Chromium é instalado no próprio runner). Tudo na nuvem do GitHub, sem necessidade de instalar nada localmente.
+
 ## Cobertura atual (Fundação)
 - **Unitários (6):** `formatarReais` (formatação em reais, 3 casos); `parseEnv` (validação de variáveis, 3 casos).
 - **E2E (1):** smoke — a página inicial carrega e exibe "Controle de Aluguéis".

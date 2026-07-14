@@ -1,0 +1,42 @@
+name: CI
+
+# Roda na nuvem do GitHub (grátis) a cada push na main e em cada pull request.
+# Ninguém precisa instalar nada localmente.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Checagem de tipos
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Testes unitários
+        run: npm run test
+
+      - name: Build de produção
+        run: npm run build
+
+      - name: Instalar navegador do Playwright (Chromium)
+        run: npx playwright install --with-deps chromium
+
+      - name: Testes ponta a ponta (e2e)
+        run: npm run test:e2e

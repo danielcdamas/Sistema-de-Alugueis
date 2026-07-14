@@ -7,6 +7,7 @@
 - **Estágio:** Fase 1 em andamento. **Etapa 1 — Fundação: concluída e aprovada em planejamento.**
 - **Feito:** charter (`CLAUDE.md` v03); esqueleto Next.js 16 + TypeScript + Tailwind v4 (modo claro, pt-BR); validação de variáveis com zod; utilitário de formatação em reais; testes (Vitest + Playwright) passando; ESLint + Prettier; `.env.example`; documentação inicial completa em `docs/`.
 - **Verificações (todas verdes):** `typecheck`, `lint`, 6 testes unitários, 1 teste e2e, `build` de produção.
+- **Integração contínua:** GitHub Actions (`.github/workflows/ci.yml`) roda typecheck, lint, testes e build na nuvem a cada push/PR — sem instalação local.
 
 ## Próximo passo proposto
 

@@ -11,6 +11,7 @@ Registro das mudanças do projeto. Datas no fuso America/Sao_Paulo (formato AAAA
   - Ferramentas de teste: **Vitest** (6 testes unitários) e **Playwright** (1 teste e2e), todos passando; `typecheck`, `lint` e `build` verdes.
   - ESLint (config do Next) + Prettier; `.gitignore` ajustado para versionar `.env.example` e ignorar artefatos do Playwright.
 - Adicionada a documentação inicial em `docs/`: `PRODUCT_SPEC.md`, `BUSINESS_RULES.md`, `DATA_MODEL.md`, `DECISIONS.md`, `TEST_PLAN.md`, `DEPLOYMENT.md`, `USER_MANUAL.md`.
+- Adicionada **integração contínua (GitHub Actions)** em `.github/workflows/ci.yml`: a cada push na `main` e em cada pull request, roda na nuvem `typecheck`, `lint`, testes unitários, `build` e o teste e2e — sem necessidade de instalar nada localmente.
 
 ## 2026-07-13
 
