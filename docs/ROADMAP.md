@@ -4,15 +4,15 @@
 
 ## Situação atual (2026-07-14)
 
-- **Estágio:** Fase 1 em andamento. **Etapas 1 (Fundação) e 2 (Banco — cadastros): concluídas.**
-- **Feito na Etapa 2:** Drizzle ORM + PGlite (PostgreSQL embutido, sem instalação); tabelas `real_estate_agencies` e `properties` com migração (`drizzle/`) e testes de integração; script `db:generate`.
-- **Feito na Etapa 1:** esqueleto Next.js 16 + TypeScript + Tailwind v4 (modo claro, pt-BR); validação de variáveis com zod; utilitário de reais; ESLint + Prettier; documentação inicial.
-- **Verificações (todas verdes):** `typecheck`, `lint`, **11 testes** (6 unitários + 5 de banco), 1 teste e2e, `build`.
+- **Estágio:** Fase 1 em andamento. **Etapas 1 (Fundação), 2 (Banco — cadastros) e 3 (Contratos e competências): concluídas.**
+- **Feito na Etapa 3:** tabelas `rental_contracts`, `property_agency_history` e `monthly_rent_periods` (competência com `UNIQUE(imóvel, ano, mês)` e *fotografia* das regras do contrato); função de **geração idempotente** de competências (`ensureMonthlyPeriod`); testes de integração.
+- **Feito nas Etapas 1–2:** esqueleto Next.js 16 + TS + Tailwind (modo claro, pt-BR); zod; utilitário de reais; Drizzle ORM + PGlite; cadastros (`real_estate_agencies`, `properties`); ESLint + Prettier; documentação.
+- **Verificações (todas verdes):** `typecheck`, `lint`, **21 testes** (6 unitários + 15 de banco), 1 teste e2e, `build`.
 - **Integração contínua:** GitHub Actions (`.github/workflows/ci.yml`) roda tudo na nuvem a cada push/PR — sem instalação local.
 
 ## Próximo passo proposto
 
-**Etapa 3 — Contratos, histórico de imobiliária e competências:** tabelas `rental_contracts`, `property_agency_history` e `monthly_rent_periods` (com `UNIQUE(imóvel, competência)` para geração idempotente); testes de integração. Em seguida, o núcleo financeiro (fórmulas de conciliação) com testes unitários. **Aguardar aprovação antes de iniciar.**
+**Etapa 4 — Núcleo financeiro (cálculos):** implementar, como funções puras com testes unitários (prioridade máxima), as fórmulas do `docs/BUSINESS_RULES.md` — líquido tributável, valor esperado para depósito, total depositado, divergência com tolerância de R$ 0,01, situações (conciliado/parcial/a menor/a maior), taxa esperada × cobrada e o repasse de 27%. Sem banco nesta etapa: entradas → resultados calculados. **Aguardar aprovação antes de iniciar.**
 
 ## Fases (resumo)
 

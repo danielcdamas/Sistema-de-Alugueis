@@ -23,5 +23,12 @@ Registro enxuto de decisões (estilo ADR): contexto curto + escolha + motivo. De
 - **Estratégia de teste de banco:** um PGlite em memória compartilhado por arquivo de teste (o custo de compilação WASM é pago uma vez), com as tabelas limpas entre os testes; tempos-limite do Vitest ampliados (`testTimeout` 20s, `hookTimeout` 30s) por causa da inicialização WASM.
 - **Primeiras tabelas:** `real_estate_agencies` e `properties`, com arquivamento lógico e FK `ON DELETE restrict`.
 
+## 2026-07-14 — Etapa 3 (Contratos e competências)
+
+- **Competência** representada por dois inteiros (`competencia_ano` e `competencia_mes`, com CHECK 1..12), não por uma data — reforça que competência é um _mês_, não um instante, e evita ambiguidade de fuso.
+- **Idempotência** da geração garantida por `UNIQUE(property_id, ano, mês)` + `onConflictDoNothing` (função `ensureMonthlyPeriod` em `src/db/periods.ts`).
+- **Fotografia:** a competência copia as regras do contrato (valor, taxa, dia de vencimento, regra de fim de semana) no momento da geração; mudanças posteriores no contrato não alteram competências já criadas.
+- **IPTU:** campo `iptu_config` (`jsonb`) reservado no contrato; a estrutura será definida na etapa de IPTU.
+
 ## Pendências conhecidas
 - 2 avisos "moderate" do `npm audit` vindos do `postcss` transitivo dentro do Next 16; a correção sugerida rebaixaria o Next (inviável). Baixo risco prático; reavaliar quando o Next atualizar o postcss.

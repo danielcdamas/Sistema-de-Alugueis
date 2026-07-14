@@ -13,6 +13,7 @@ Registro das mudanças do projeto. Datas no fuso America/Sao_Paulo (formato AAAA
 - Adicionada a documentação inicial em `docs/`: `PRODUCT_SPEC.md`, `BUSINESS_RULES.md`, `DATA_MODEL.md`, `DECISIONS.md`, `TEST_PLAN.md`, `DEPLOYMENT.md`, `USER_MANUAL.md`.
 - Adicionada **integração contínua (GitHub Actions)** em `.github/workflows/ci.yml`: a cada push na `main` e em cada pull request, roda na nuvem `typecheck`, `lint`, testes unitários, `build` e o teste e2e — sem necessidade de instalar nada localmente.
 - **Etapa 2 — Banco de dados (cadastros).** Adicionados **Drizzle ORM** + **PGlite** (PostgreSQL embutido, sem instalação): schema em `src/db/schema.ts` com as tabelas `real_estate_agencies` e `properties` (arquivamento lógico, FK `ON DELETE restrict`), migração em `drizzle/`, cliente de teste em `src/db/client.ts` e 5 testes de integração. Novo script `db:generate`.
+- **Etapa 3 — Contratos, histórico e competências.** Novas tabelas `rental_contracts`, `property_agency_history` e `monthly_rent_periods` (competência com `UNIQUE(imóvel, ano, mês)`, CHECKs de dia/mês/regra/taxa e *fotografia* das regras do contrato). Função de geração idempotente de competências (`src/db/periods.ts`) e utilitário de testes (`src/db/test-utils.ts`); +10 testes de integração (contratos e competências), totalizando 21 no Vitest.
 
 ## 2026-07-13
 
