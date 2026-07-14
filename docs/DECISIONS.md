@@ -15,5 +15,13 @@ Registro enxuto de decisões (estilo ADR): contexto curto + escolha + motivo. De
 - **Provedor de nuvem (adiado):** Supabase × Neon e Vercel × Cloudflare Pages ficam para a etapa de deploy, revalidando limites/custos na data. A Fase 1 roda 100% local.
 - **Qualidade de código:** ESLint (config do Next) + Prettier.
 
+## 2026-07-14 — Etapa 2 (Banco de dados)
+
+- **ORM:** Drizzle ORM (`drizzle-orm`) + Drizzle Kit (`drizzle-kit`) para gerar migrações SQL a partir do schema.
+- **Banco de dev/teste:** **PGlite** (`@electric-sql/pglite`) — PostgreSQL embutido, em processo, sem servidor nem instalação. Escolhido para atender à restrição de "tudo na nuvem, nada instalado localmente": os testes de banco rodam aqui e no CI apenas com Node. Substitui o "PostgreSQL local via Docker" cogitado no plano inicial.
+- **Portabilidade:** o schema é PostgreSQL padrão; produção usará um Postgres gerenciado (Neon/Supabase/Vercel) com as **mesmas migrações**, trocando só o driver.
+- **Estratégia de teste de banco:** um PGlite em memória compartilhado por arquivo de teste (o custo de compilação WASM é pago uma vez), com as tabelas limpas entre os testes; tempos-limite do Vitest ampliados (`testTimeout` 20s, `hookTimeout` 30s) por causa da inicialização WASM.
+- **Primeiras tabelas:** `real_estate_agencies` e `properties`, com arquivamento lógico e FK `ON DELETE restrict`.
+
 ## Pendências conhecidas
 - 2 avisos "moderate" do `npm audit` vindos do `postcss` transitivo dentro do Next 16; a correção sugerida rebaixaria o Next (inviável). Baixo risco prático; reavaliar quando o Next atualizar o postcss.

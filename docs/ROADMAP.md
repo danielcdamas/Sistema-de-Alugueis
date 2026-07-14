@@ -4,14 +4,15 @@
 
 ## Situação atual (2026-07-14)
 
-- **Estágio:** Fase 1 em andamento. **Etapa 1 — Fundação: concluída e aprovada em planejamento.**
-- **Feito:** charter (`CLAUDE.md` v03); esqueleto Next.js 16 + TypeScript + Tailwind v4 (modo claro, pt-BR); validação de variáveis com zod; utilitário de formatação em reais; testes (Vitest + Playwright) passando; ESLint + Prettier; `.env.example`; documentação inicial completa em `docs/`.
-- **Verificações (todas verdes):** `typecheck`, `lint`, 6 testes unitários, 1 teste e2e, `build` de produção.
-- **Integração contínua:** GitHub Actions (`.github/workflows/ci.yml`) roda typecheck, lint, testes e build na nuvem a cada push/PR — sem instalação local.
+- **Estágio:** Fase 1 em andamento. **Etapas 1 (Fundação) e 2 (Banco — cadastros): concluídas.**
+- **Feito na Etapa 2:** Drizzle ORM + PGlite (PostgreSQL embutido, sem instalação); tabelas `real_estate_agencies` e `properties` com migração (`drizzle/`) e testes de integração; script `db:generate`.
+- **Feito na Etapa 1:** esqueleto Next.js 16 + TypeScript + Tailwind v4 (modo claro, pt-BR); validação de variáveis com zod; utilitário de reais; ESLint + Prettier; documentação inicial.
+- **Verificações (todas verdes):** `typecheck`, `lint`, **11 testes** (6 unitários + 5 de banco), 1 teste e2e, `build`.
+- **Integração contínua:** GitHub Actions (`.github/workflows/ci.yml`) roda tudo na nuvem a cada push/PR — sem instalação local.
 
 ## Próximo passo proposto
 
-**Etapa 2 — Banco de dados e modelo inicial:** configurar PostgreSQL local (Docker) + Drizzle; criar as primeiras migrações do modelo de dados (ver `docs/DATA_MODEL.md`), começando pelas entidades de cadastro e pelas competências; testes de integração. **Aguardar aprovação antes de iniciar.**
+**Etapa 3 — Contratos, histórico de imobiliária e competências:** tabelas `rental_contracts`, `property_agency_history` e `monthly_rent_periods` (com `UNIQUE(imóvel, competência)` para geração idempotente); testes de integração. Em seguida, o núcleo financeiro (fórmulas de conciliação) com testes unitários. **Aguardar aprovação antes de iniciar.**
 
 ## Fases (resumo)
 

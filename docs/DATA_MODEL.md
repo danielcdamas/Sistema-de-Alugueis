@@ -1,6 +1,6 @@
 # MODELO DE DADOS — Controle de Aluguéis
 
-> Estado: **planejado** (apresentado antes de implementar, conforme o charter). Ainda não há tabelas nem migrações. Convenções gerais: chave primária; timestamps `created_at`/`updated_at`; **arquivamento lógico** via `archived_at` (nunca DELETE em dado financeiro); dinheiro em `numeric`; FKs, índices, checks e unicidade.
+> Estado: **em implementação.** Já implementadas (schema Drizzle + migração + testes de integração): `real_estate_agencies` e `properties`. As demais permanecem planejadas e serão criadas nas próximas etapas. Convenções gerais: chave primária `uuid`; timestamps `created_at`/`updated_at`; **arquivamento lógico** via `archived_at` (nunca DELETE em dado de negócio); dinheiro em `numeric`; FKs, índices, checks e unicidade.
 
 ## Entidades e relações
 
@@ -9,8 +9,8 @@
 - `profiles` — perfil (administrador/leitor), 1:1 com `users`. Papel definido e verificado no servidor/banco.
 
 ### Cadastros
-- `real_estate_agencies` — imobiliárias.
-- `properties` — imóveis (FK imobiliária atual).
+- `real_estate_agencies` — imobiliárias. **✓ implementada (Etapa 2).**
+- `properties` — imóveis (FK imobiliária atual). **✓ implementada (Etapa 2).**
 - `property_agency_history` — histórico imóvel↔imobiliária, com início/fim (preserva o período).
 - `rental_contracts` — contratos (FK imóvel + imobiliária; vencimento, regra de fim de semana/feriado, % taxa de administração esperada, IPTU, reajuste).
 
