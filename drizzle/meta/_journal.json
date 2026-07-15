@@ -15,6 +15,13 @@
       "when": 1784058840731,
       "tag": "0001_simple_barracuda",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784119813358,
+      "tag": "0002_magical_magma",
+      "breakpoints": true
     }
   ]
 }

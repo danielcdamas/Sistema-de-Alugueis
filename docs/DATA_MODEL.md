@@ -1,6 +1,6 @@
 # MODELO DE DADOS — Controle de Aluguéis
 
-> Estado: **em implementação.** Já implementadas (schema Drizzle + migração + testes de integração): `real_estate_agencies`, `properties`, `rental_contracts`, `property_agency_history` e `monthly_rent_periods`. As demais permanecem planejadas. Convenções gerais: chave primária `uuid`; timestamps `created_at`/`updated_at`; **arquivamento lógico** via `archived_at` (nunca DELETE em dado de negócio); dinheiro em `numeric`; FKs, índices, checks e unicidade.
+> Estado: **em implementação.** Já implementadas (schema Drizzle + migração + testes de integração): `real_estate_agencies`, `properties`, `rental_contracts`, `property_agency_history`, `monthly_rent_periods`, `bank_movements` e `statement_components`. As demais permanecem planejadas. Convenções gerais: chave primária `uuid`; timestamps `created_at`/`updated_at`; **arquivamento lógico** via `archived_at` (nunca DELETE em dado de negócio); dinheiro em `numeric`; FKs, índices, checks e unicidade.
 
 ## Entidades e relações
 
@@ -16,9 +16,9 @@
 
 ### Núcleo financeiro
 - `monthly_rent_periods` — competências. **`UNIQUE(property_id, ano, mês)`** (geração idempotente). Guarda a *fotografia* das regras do contrato e a imobiliária do período. **✓ implementada (Etapa 3).**
-- `financial_component_types` — catálogo configurável (afeta esperado? afeta base tributável? ressarcimento/despesa/acréscimo/desconto/informativo; exige descrição/documento).
-- `statement_components` — linhas do demonstrativo (FK competência + tipo).
-- `bank_movements` — movimentos: depósito, complemento, estorno, devolução, compensação, ajuste (FK competência).
+- `financial_component_types` — catálogo configurável (afeta esperado? afeta base tributável? ressarcimento/despesa/acréscimo/desconto/informativo; exige descrição/documento). _(Adiado: por ora, `statement_components.kind` com CHECK cobre os componentes padrão.)_
+- `statement_components` — linhas do demonstrativo (FK competência; `kind` com CHECK; valor ≥ 0). **✓ implementada (Etapa 5).**
+- `bank_movements` — movimentos: depósito, complemento, estorno, devolução, compensação, ajuste (FK competência; CHECK de tipo e de sinal do valor). **✓ implementada (Etapa 5).**
 
 ### Repasses
 - `transfer_rules` — regras extensíveis (ex.: Sala da Contorno = 27%, ligada ao **ID interno** do imóvel).

@@ -204,3 +204,70 @@ export const monthlyRentPeriods = pgTable(
     ),
   ],
 );
+
+/** Movimentos bancários de uma competência (depósito, estorno, etc.). */
+export const bankMovements = pgTable(
+  "bank_movements",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    monthlyRentPeriodId: uuid("monthly_rent_period_id")
+      .notNull()
+      .references(() => monthlyRentPeriods.id, { onDelete: "restrict" }),
+    tipo: text("tipo").notNull(),
+    /** Valor do movimento. Magnitude positiva; compensação/ajuste podem ser negativos. */
+    value: numeric("value", { precision: 12, scale: 2 }).notNull(),
+    movementDate: date("movement_date"),
+    description: text("description"),
+    proofUrl: text("proof_url"),
+    origin: text("origin").notNull().default("manual"),
+    createdBy: uuid("created_by"),
+    notes: text("notes"),
+    archivedAt: timestamp("archived_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    check(
+      "bank_movements_tipo_check",
+      sql`${t.tipo} in ('deposito', 'complemento', 'estorno', 'devolucao', 'compensacao', 'ajuste')`,
+    ),
+    // Tipos de sinal fixo exigem valor não-negativo; compensação/ajuste podem ser negativos.
+    check(
+      "bank_movements_value_sign_check",
+      sql`${t.tipo} in ('compensacao', 'ajuste') or ${t.value} >= 0`,
+    ),
+  ],
+);
+
+/** Componentes do demonstrativo de uma competência (linhas de valores). */
+export const statementComponents = pgTable(
+  "statement_components",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    monthlyRentPeriodId: uuid("monthly_rent_period_id")
+      .notNull()
+      .references(() => monthlyRentPeriods.id, { onDelete: "restrict" }),
+    /** Tipo do componente (ex.: bruto_devido, taxa_admin, ressarcimento_iptu). */
+    kind: text("kind").notNull(),
+    value: numeric("value", { precision: 12, scale: 2 }).notNull(),
+    description: text("description"),
+    createdBy: uuid("created_by"),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    check(
+      "statement_components_kind_check",
+      sql`${t.kind} in ('bruto_devido', 'ressarcimento_iptu', 'taxa_admin', 'taxa_bancaria', 'taxa_extra', 'fundo_reserva', 'multa', 'juros', 'desconto', 'retencao', 'outro_acrescimo', 'outro_desconto', 'informativo')`,
+    ),
+    check("statement_components_value_check", sql`${t.value} >= 0`),
+  ],
+);

@@ -15,9 +15,9 @@ O **GitHub Actions** (`.github/workflows/ci.yml`) roda automaticamente, a cada p
 
 ## Cobertura atual
 - **Unitários (27):** `formatarReais` (3); `parseEnv` (3); **núcleo financeiro** (21) — parsing de centavos, líquido/esperado, total depositado, divergência e tolerância R$ 0,01, situações, taxa esperada × cobrada, repasse de 27% e os exemplos do charter.
-- **Integração de banco (15):** cadastros — imobiliárias/imóveis, unicidade, FK, arquivamento (5); contratos e histórico — CHECKs (dia, regra), FK, decimal preservado (5); competências — geração idempotente, fotografia por competência, UNIQUE, CHECK de mês (5).
+- **Integração de banco (21):** cadastros — imobiliárias/imóveis, unicidade, FK, arquivamento (5); contratos e histórico — CHECKs (dia, regra), FK, decimal preservado (5); competências — geração idempotente, fotografia por competência, UNIQUE, CHECK de mês (5); conciliação sobre dados persistidos — demonstrativo + depósitos → avaliação, estorno, CHECKs de tipo/kind/sinal (6).
 - **E2E (1):** smoke — a página inicial carrega e exibe "Controle de Aluguéis".
-- **Total:** 42 testes no Vitest + 1 e2e no Playwright.
+- **Total:** 48 testes no Vitest + 1 e2e no Playwright.
 
 ## Planejado (etapas seguintes — prioridade nos unitários do financeiro)
 Líquido tributável; esperado para depósito; movimentos; divergência e tolerância R$ 0,01; parcial; estorno; taxa de administração; repasse 27%; dias de atraso; vencimento ajustado; competência × recebimento; Carnê-Leão por mês de recebimento; geração idempotente; duplicidade de cobrança; fechamento mensal. **Integração:** permissões, bloqueio do leitor, geração mensal, conciliação, auditoria. **E2E:** login por link mágico, cadastros, gerar competência, registrar demonstrativo/depósito, divergência, e demais fluxos.

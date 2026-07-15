@@ -37,5 +37,11 @@ Registro enxuto de decisões (estilo ADR): contexto curto + escolha + motivo. De
 - **Tolerância de conciliação** padrão = 1 centavo (R$ 0,01), configurável.
 - **"Parcial" × "recebido a menor":** ambos têm total abaixo do esperado; a distinção depende de a competência estar "em aberto" (parâmetro `emAberto`) — é decisão de situação, não de aritmética.
 
+## 2026-07-14 — Etapa 5 (Persistência de movimentos e componentes)
+
+- **`bank_movements`** e **`statement_components`** persistem, por competência, os movimentos e as linhas do demonstrativo. CHECKs garantem tipos/kinds válidos e valores não-negativos (compensação/ajuste podem ser negativos).
+- **Ponte banco → cálculo** em `src/db/conciliacao.ts`: `avaliarCompetenciaPersistida` carrega componentes e movimentos e roda o núcleo da Etapa 4.
+- **`financial_component_types` (catálogo configurável) adiado:** por ora `statement_components.kind` (texto com CHECK) cobre os componentes padrão, que já têm tratamento fixo nas fórmulas. Será criado quando houver necessidade de tipos configuráveis/personalizados.
+
 ## Pendências conhecidas
 - 2 avisos "moderate" do `npm audit` vindos do `postcss` transitivo dentro do Next 16; a correção sugerida rebaixaria o Next (inviável). Baixo risco prático; reavaliar quando o Next atualizar o postcss.

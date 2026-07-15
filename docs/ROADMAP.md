@@ -4,15 +4,15 @@
 
 ## Situação atual (2026-07-14)
 
-- **Estágio:** Fase 1 em andamento. **Etapas 1–4 concluídas** (Fundação; Banco/cadastros; Contratos/competências; **Núcleo financeiro**).
-- **Feito na Etapa 4:** núcleo financeiro em `src/lib/financeiro.ts` (funções puras) — líquido tributável, esperado para depósito, total depositado, divergência com tolerância de R$ 0,01, situações de conciliação, taxa esperada × cobrada e repasse de 27%. Dinheiro em centavos inteiros. 21 testes unitários (incluindo os exemplos do charter).
-- **Feito nas Etapas 1–3:** Next.js 16 + TS + Tailwind (modo claro, pt-BR); zod; Drizzle ORM + PGlite; cadastros, contratos, histórico e competências (geração idempotente + fotografia); ESLint + Prettier; documentação.
-- **Verificações (todas verdes):** `typecheck`, `lint`, **42 testes** (27 unitários + 15 de banco), 1 teste e2e, `build`.
+- **Estágio:** Fase 1 em andamento. **Etapas 1–5 concluídas** (Fundação; Banco/cadastros; Contratos/competências; Núcleo financeiro; **Persistência de movimentos/componentes + conciliação sobre dados reais**).
+- **Feito na Etapa 5:** tabelas `bank_movements` e `statement_components` (com CHECKs); ponte `avaliarCompetenciaPersistida` (`src/db/conciliacao.ts`) que avalia uma competência a partir do que está gravado; testes de integração conectando banco ↔ núcleo financeiro.
+- **Feito nas Etapas 1–4:** Next.js 16 + TS + Tailwind (modo claro, pt-BR); zod; Drizzle + PGlite; cadastros, contratos e competências; núcleo financeiro (funções puras); ESLint + Prettier; documentação.
+- **Verificações (todas verdes):** `typecheck`, `lint`, **48 testes** (27 unitários + 21 de banco), 1 teste e2e, `build`.
 - **Integração contínua:** GitHub Actions (`.github/workflows/ci.yml`) roda tudo na nuvem a cada push/PR — sem instalação local.
 
 ## Próximo passo proposto
 
-**Etapa 5 — Movimentos e componentes do demonstrativo (persistência):** tabelas `bank_movements` e `statement_components` (e o catálogo `financial_component_types`), conectando o núcleo financeiro a dados reais — avaliar uma competência a partir do que está gravado, com testes de integração. **Aguardar aprovação antes de iniciar.**
+**Etapa 6 — Autenticação sem senha e perfis (admin/leitor):** login por link mágico/código, com perfil verificado no servidor/banco e controle de acesso. Em desenvolvimento, o link será exibido no console do servidor (sem provedor de e-mail — este fica para o deploy). Decisão a combinar antes de codar: abordagem de autenticação (implementação própria portável × Auth.js). **Aguardar aprovação antes de iniciar.**
 
 ## Fases (resumo)
 
